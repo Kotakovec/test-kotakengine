@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubův Testovací Web</title>
+    <style>
+        /* Trocha stylu, ať to nevypadá jako z roku 1995 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2563eb;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            min-height: 50px;
+            word-wrap: break-word;
+        }
+
+        input {
+            padding: 8px;
+            width: 80%;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Testovací Web</h1>
+        <p>Tady můžeš zkoušet své kousky kódu.</p>
+        
+        <input type="text" id="userInput" placeholder="Napiš sem něco...">
+        <br>
+        <button id="testBtn">Klikni na mě!</button>
+
+        <div id="output">
+            <em>Tady se zobrazí výsledek...</em>
+        </div>
+    </div>
+
+    <script>
+        // Tady si můžeš hrát s logikou
+        const btn = document.getElementById('testBtn');
+        const input = document.getElementById('userInput');
+        const output = document.getElementById('output');
+
+        btn.addEventListener('click', () => {
+            const val = input.value;
+            if (val.trim() === "") {
+                output.innerHTML = "<strong>Zkus nejdřív něco napsat!</strong>";
+                output.style.color = "red";
+            } else {
+                output.innerHTML = `Napsal jsi: <strong>${val}</strong>`;
+                output.style.color = "green";
+                console.log("Uživatel napsal:", val);
+            }
+        });
+
+        // Tip pro tebe: Zkus v konzoli prohlížeče (F12) napsat: console.log("Ahoj!")
+    </script>
+</body>
+</html>
