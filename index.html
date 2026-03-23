@@ -1,172 +1,176 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testovací Web</title>
-</head>
-<body>
-
-    <div class="container">
-        <h1>Test</h1>
-        <p>Tady tvorim pokusy</p>
-        
-        <input type="text" id="userInput" placeholder="Napiš sem něco...">
-        <br>
-        <button id="testBtn">Klikni na mě!</button>
-
-        <div id="output">
-            <em>Tady se zobrazí výsledek...</em>
-        </div>
-    </div>
-    <div id="kotak-wrapper">
+<div id="kotak-component-root">
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    
     <style>
-        /* Styl celého pozadí kolem kapsle (pokud chceš, aby byl wrapper přes celou šířku) */
-        #kotak-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            background: transparent; /* Přizpůsobí se tvému webu */
-        }
-
-        /* Samotná kapsle (karta) */
         #kotak-engine-card {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #1e293b; /* Tmavě modro-šedá */
+            font-family: 'Segoe UI', sans-serif;
+            background: #1e293b;
             padding: 30px;
-            border-radius: 24px; /* Hodně kulaté rohy pro vzhled kapsle */
+            border-radius: 24px;
             width: 100%;
             max-width: 480px;
             border: 1px solid #334155;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Silný stín pro efekt hloubky */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             text-align: center;
             color: white;
+            margin: 20px auto;
         }
-
-        #kotak-engine-card h1 { 
-            color: #3b82f6; 
-            margin: 0 0 5px 0; 
-            font-size: 2rem; 
-            letter-spacing: -0.025em;
-        }
-
-        #kotak-engine-card h3 { 
-            color: #94a3b8; 
-            font-weight: normal; 
-            margin: 0 0 25px 0; 
-            font-size: 1.1rem; 
-        }
-
-        /* Kontejner pro náhledy */
-        .kotak-media-container { 
-            background: #000000; 
-            border-radius: 16px; 
-            margin-bottom: 20px; 
-            min-height: 180px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border: 1px solid #475569; 
-            overflow: hidden; 
-            padding: 10px;
-        }
-
-        .kotak-media-content { max-width: 100%; max-height: 350px; border-radius: 8px; }
-
-        /* Tlačítka */
-        .kotak-btn { 
-            padding: 16px; 
-            border: none; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            color: white; 
-            transition: all 0.2s ease; 
-            width: 100%; 
-            margin-top: 8px; 
-            font-size: 1rem;
-            display: block;
-            text-decoration: none;
-        }
-
-        .kotak-btn:active { transform: scale(0.98); }
-        .kotak-btn-blue { background: #3b82f6; }
-        .kotak-btn-blue:hover { background: #2563eb; }
-        .kotak-btn-green { background: #10b981; }
-        .kotak-btn-green:hover { background: #059669; }
-        .kotak-btn-red { background: #ef4444; }
-        .kotak-btn-red:hover { background: #dc2626; }
-
-        /* Inputy */
-        .kotak-input-file { 
-            margin-bottom: 20px; 
-            color: #94a3b8; 
-            width: 100%; 
-            font-size: 0.9rem;
-        }
-
-        .kotak-input-pass { 
-            width: 100%; 
-            padding: 14px; 
-            margin-bottom: 12px; 
-            border-radius: 10px; 
-            background: #0f172a; 
-            color: white; 
-            border: 1px solid #334155; 
-            box-sizing: border-box; 
-            outline: none;
-        }
-
-        .kotak-input-pass:focus { border-color: #3b82f6; }
-
-        /* Pomocné třídy */
-        .kotak-hidden { display: none !important; }
-        .kotak-lock-msg { color: #ef4444; font-weight: bold; font-size: 1.2rem; text-transform: uppercase; }
-        .kotak-lock-sub { color: #64748b; font-size: 0.85rem; margin-top: 8px; }
-        .kotak-action-group { margin-top: 15px; padding-top: 15px; border-top: 1px solid #334155; }
-        .kotak-loading-text { color: #3b82f6; font-weight: 500; }
-        
-        #kotak-file-info { font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px; font-weight: 500; }
+        #kotak-engine-card h1 { color: #3b82f6; margin: 0 0 5px 0; font-size: 2rem; }
+        #kotak-engine-card h3 { color: #94a3b8; font-weight: normal; margin: 0 0 25px 0; font-size: 1.1rem; }
+        .k-media-container { background: #000; border-radius: 16px; margin-bottom: 20px; min-height: 180px; display: flex; align-items: center; justify-content: center; border: 1px solid #475569; overflow: hidden; flex-direction: column; padding: 10px; }
+        .k-media-content { max-width: 100%; max-height: 350px; border-radius: 8px; }
+        .k-btn { padding: 16px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; color: white; transition: all 0.2s ease; width: 100%; margin-top: 8px; font-size: 1rem; display: block; text-decoration: none; }
+        .k-btn-blue { background: #3b82f6; }
+        .k-btn-green { background: #10b981; }
+        .k-btn-red { background: #ef4444; }
+        .k-input-file { margin-bottom: 20px; color: #94a3b8; width: 100%; }
+        .k-input-pass { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 10px; background: #0f172a; color: white; border: 1px solid #334155; box-sizing: border-box; outline: none; }
+        .k-hidden { display: none !important; }
+        .k-lock-msg { color: #ef4444; font-weight: bold; font-size: 1.2rem; }
     </style>
 
     <div id="kotak-engine-card">
         <h1>Kotak Engine</h1>
         <h3>File Transform</h3>
 
-        <div id="kotak-upload-section">
-            <p style="color: #94a3b8; margin-bottom: 15px;">Vybrat soubor</p>
-            <input type="file" id="kotak-fileInput" class="kotak-input-file">
+        <div id="k-upload-section">
+            <p style="color: #94a3b8;">Vybrat soubor</p>
+            <input type="file" id="k-fileInput" class="k-input-file">
         </div>
 
-        <div id="kotak-player-section" class="kotak-hidden">
-            <div id="kotak-file-info"></div>
-            <div class="kotak-media-container" id="kotak-mediaHolder"></div>
+        <div id="k-player-section" class="k-hidden">
+            <div id="k-file-info" style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;"></div>
+            <div class="k-media-container" id="k-mediaHolder"></div>
 
-            <div id="kotak-unlock-zone" class="kotak-hidden">
-                <input type="password" id="kotak-unlockPass" class="kotak-input-pass" placeholder="Heslo pro odemčení">
-                <button class="kotak-btn kotak-btn-green" onclick="kotakUnlockFile()">ODEMKNOUT</button>
+            <div id="k-unlock-zone" class="k-hidden">
+                <input type="password" id="k-unlockPass" class="k-input-pass" placeholder="Heslo pro odemčení">
+                <button class="k-btn k-btn-green" onclick="k_unlockFile()">ODEMKNOUT</button>
             </div>
 
-            <div id="kotak-action-zone" class="kotak-hidden">
-                <button class="kotak-btn kotak-btn-blue" id="kotak-btnKotak" onclick="kotakCreateKotak()">Vytvořit soubor .kotak</button>
-                
-                <div id="kotak-ppkotak-init">
-                    <button class="kotak-btn kotak-btn-red" onclick="kotakShowPPInput()">Vytvořit soubor .ppkotak</button>
+            <div id="k-action-zone" class="k-hidden">
+                <button class="k-btn k-btn-blue" id="k-btnKotak" onclick="k_createKotak()">Vytvořit soubor .kotak</button>
+                <div id="k-ppkotak-init">
+                    <button class="k-btn k-btn-red" onclick="k_showPPInput()">Vytvořit soubor .ppkotak</button>
                 </div>
-                
-                <div id="kotak-ppkotak-input" class="kotak-hidden kotak-action-group">
-                    <input type="password" id="kotak-lockPass" class="kotak-input-pass" placeholder="Heslo pro .ppkotak">
-                    <button class="kotak-btn kotak-btn-red" onclick="kotakCreatePPKotak()">POTVRDIT A ZAMKNOUT</button>
+                <div id="k-ppkotak-input" class="k-hidden">
+                    <input type="password" id="k-lockPass" class="k-input-pass" placeholder="Heslo pro .ppkotak">
+                    <button class="k-btn k-btn-red" onclick="k_createPPKotak()">POTVRDIT A ZAMKNOUT</button>
                 </div>
-
-                <button class="kotak-btn kotak-btn-green" id="kotak-dlOriginal" onclick="kotakDownloadOriginal()">DOWNLOAD ORIGINAL</button>
+                <button class="k-btn k-btn-green" id="k-dlOriginal" onclick="k_downloadOriginal()">DOWNLOAD ORIGINAL</button>
             </div>
-            
             <a href="javascript:void(0)" onclick="location.reload()" style="color: #64748b; font-size: 0.8rem; text-decoration: none; display: block; margin-top: 20px;">← Zvolit jiný soubor</a>
         </div>
     </div>
-</div>
 
-</body>
-</html>
+    <script>
+        const K_SIG = "KOTAK_V2";
+        let k_raw = null, k_curr = null, k_name = "", k_ext = ".bin";
+
+        document.getElementById('k-fileInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            k_name = file.name;
+            const buffer = await file.arrayBuffer();
+            k_raw = new Uint8Array(buffer);
+            
+            document.getElementById('k-upload-section').classList.add('k-hidden');
+            document.getElementById('k-player-section').classList.remove('k-hidden');
+            
+            if (k_name.endsWith('.ppkotak')) {
+                k_showLock();
+            } else {
+                k_handleStd();
+            }
+        });
+
+        function k_showLock() {
+            document.getElementById('k-mediaHolder').innerHTML = `<div class="k-lock-msg">SOUBOR JE ŠIFROVÁN</div>`;
+            document.getElementById('k-unlock-zone').classList.remove('k-hidden');
+            document.getElementById('k-action-zone').classList.add('k-hidden');
+        }
+
+        async function k_unlockFile() {
+            const pass = document.getElementById('k-unlockPass').value;
+            const key = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pass)));
+            let dec = new Uint8Array(k_raw.length);
+            for (let i = 0; i < k_raw.length; i++) dec[i] = k_raw[i] ^ key[i % key.length];
+            try {
+                k_ext = new TextDecoder().decode(dec.slice(0, 10)).trim();
+                k_curr = dec.slice(10);
+                if (!k_ext.startsWith('.')) throw new Error();
+                document.getElementById('k-unlock-zone').classList.add('k-hidden');
+                document.getElementById('k-action-zone').classList.remove('k-hidden');
+                document.getElementById('k-ppkotak-init').classList.add('k-hidden');
+                k_preview(k_curr, k_ext);
+            } catch (e) { alert("Špatné heslo!"); }
+        }
+
+        function k_handleStd() {
+            if (k_name.endsWith('.kotak')) {
+                const sig = new TextDecoder().decode(k_raw.slice(0, 8));
+                if (sig === K_SIG) {
+                    k_ext = new TextDecoder().decode(k_raw.slice(8, 18)).trim();
+                    k_curr = k_raw.slice(18);
+                }
+                document.getElementById('k-btnKotak').classList.add('k-hidden');
+            } else {
+                k_ext = k_name.substring(k_name.lastIndexOf('.'));
+                k_curr = k_raw;
+                document.getElementById('k-dlOriginal').classList.add('k-hidden');
+            }
+            document.getElementById('k-action-zone').classList.remove('k-hidden');
+            k_preview(k_curr, k_ext);
+        }
+
+        async function k_preview(data, ext) {
+            const holder = document.getElementById('k-mediaHolder');
+            holder.innerHTML = '<p style="color:#3b82f6">Načítám...</p>';
+            const blob = new Blob([data]);
+            let el;
+            if (ext.toLowerCase() === '.heic' || ext.toLowerCase() === '.heif') {
+                const conv = await heic2any({ blob, toType: "image/jpeg" });
+                el = document.createElement('img'); el.src = URL.createObjectURL(conv);
+            } else if (['.jpg','.jpeg','.png','.gif','.webp'].includes(ext.toLowerCase())) {
+                el = document.createElement('img'); el.src = URL.createObjectURL(blob);
+            } else if (['.mp4','.webm'].includes(ext.toLowerCase())) {
+                el = document.createElement('video'); el.controls = true; el.src = URL.createObjectURL(blob);
+            } else if (['.mp3','.wav','.ogg','.m4a'].includes(ext.toLowerCase())) {
+                el = document.createElement('audio'); el.controls = true; el.src = URL.createObjectURL(blob);
+            }
+            holder.innerHTML = '';
+            if (el) { el.className = 'k-media-content'; holder.appendChild(el); }
+            else { holder.innerHTML = `<p>Náhled není k dispozici</p>`; }
+            document.getElementById('k-file-info').innerText = `Soubor: ${k_name}`;
+            document.getElementById('k-dlOriginal').innerText = `DOWNLOAD ORIGINAL (${ext.toUpperCase()})`;
+        }
+
+        function k_showPPInput() {
+            document.getElementById('k-ppkotak-init').classList.add('k-hidden');
+            document.getElementById('k-ppkotak-input').classList.remove('k-hidden');
+        }
+
+        async function k_createPPKotak() {
+            const pass = document.getElementById('k-lockPass').value;
+            const key = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pass)));
+            const head = new TextEncoder().encode(k_ext.padEnd(10));
+            const comb = new Uint8Array(head.length + k_curr.length);
+            comb.set(head); comb.set(k_curr, head.length);
+            let fin = new Uint8Array(comb.length);
+            for (let i = 0; i < comb.length; i++) fin[i] = comb[i] ^ key[i % key.length];
+            k_down(fin, k_name.split('.')[0] + ".ppkotak");
+        }
+
+        function k_createKotak() {
+            const head = new TextEncoder().encode(K_SIG + k_ext.padEnd(10));
+            let fin = new Uint8Array(head.length + k_curr.length);
+            fin.set(head); fin.set(k_curr, head.length);
+            k_down(fin, k_name.split('.')[0] + ".kotak");
+        }
+
+        function k_downloadOriginal() { k_down(k_curr, k_name.split('.')[0] + k_ext); }
+        function k_down(data, name) {
+            const blob = new Blob([data], {type: "application/octet-stream"});
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+        }
+    </script>
+</div>
